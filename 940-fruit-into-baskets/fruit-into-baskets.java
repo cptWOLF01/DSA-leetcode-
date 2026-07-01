@@ -2,6 +2,7 @@ class Solution {
 
     public int totalFruit(int[] fruits) {
 
+        // HashMap stores:
         HashMap<Integer, Integer> map = new HashMap<>();
 
         int left = 0;
