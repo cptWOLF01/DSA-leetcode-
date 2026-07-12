@@ -4,48 +4,33 @@ class Solution {
         int m = nums1.length;
         int n = nums2.length;
 
-        int[] merged = new int[m + n];
+        int total = m + n;
 
         int i = 0;
         int j = 0;
-        int k = 0;
 
-        // Merge both arrays
-        while (i < m && j < n) {
+        int prev = 0;
+        int curr = 0;
 
-            if (nums1[i] <= nums2[j]) {
-                merged[k] = nums1[i];
+        for (int count = 0; count <= total / 2; count++) {
+
+            prev = curr;
+
+            if (i < m && (j >= n || nums1[i] <= nums2[j])) {
+                curr = nums1[i];
                 i++;
             } else {
-                merged[k] = nums2[j];
+                curr = nums2[j];
                 j++;
             }
-
-            k++;
         }
 
-        // Copy remaining elements of nums1
-        while (i < m) {
-            merged[k] = nums1[i];
-            i++;
-            k++;
+        // Odd number of elements
+        if (total % 2 == 1) {
+            return curr;
         }
 
-        // Copy remaining elements of nums2
-        while (j < n) {
-            merged[k] = nums2[j];
-            j++;
-            k++;
-        }
-
-        int size = m + n;
-
-        // If total elements are odd
-        if (size % 2 == 1) {
-            return merged[size / 2];
-        }
-
-        // If total elements are even
-        return (merged[size / 2] + merged[(size / 2) - 1]) / 2.0;
+        // Even number of elements
+        return (prev + curr) / 2.0;
     }
 }
