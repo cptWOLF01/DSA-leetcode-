@@ -1,11 +1,11 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
 
-        int rows = matrix.length;
-        int cols = matrix[0].length;
+        int rows = matrix.length;  // total no . row
+        int cols = matrix[0].length;  // total no. of col
 
         // Start from top-right corner
-        int row = 0;
+        int row = 0;  
         int col = cols - 1;
 
         while (row < rows && col >= 0) {
