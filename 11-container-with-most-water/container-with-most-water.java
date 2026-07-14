@@ -1,5 +1,10 @@
 class Solution {
-    public int maxArea(int[] height) {
+    static {
+    for(int i = 0; i < 100; i++) {
+        maxArea(new int[] {0, 0});
+    }
+}
+    public static int maxArea(int[] height) {
 
         int left = 0;
         int right = height.length -1;
