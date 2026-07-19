@@ -1,30 +1,38 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
 
-        HashMap<String, List<Integer>> map = new HashMap<>();
+        List<Integer> ans = new ArrayList<>();
 
-        // Sort p
-        char[] pArr = p.toCharArray();
-        Arrays.sort(pArr);
-        String key = new String(pArr);
+        if (s.length() < p.length())
+            return ans;
 
-        map.put(key, new ArrayList<>());
+        int[] pCount = new int[26];
+        int[] sCount = new int[26];
 
-        // Sliding window
-        for (int i = 0; i <= s.length() - p.length(); i++) {
+        // Count characters of p and first window of s
+        for (int i = 0; i < p.length(); i++) {
+            pCount[p.charAt(i) - 'a']++;
+            sCount[s.charAt(i) - 'a']++;
+        }
 
-            String window = s.substring(i, i + p.length());
+        // Check first window
+        if (Arrays.equals(pCount, sCount))
+            ans.add(0);
 
-            char[] arr = window.toCharArray();
-            Arrays.sort(arr);
+        // Slide the window
+        for (int i = p.length(); i < s.length(); i++) {
 
-            String sortedWindow = new String(arr);
+            // Remove left character
+            sCount[s.charAt(i - p.length()) - 'a']--;
 
-            if (sortedWindow.equals(key)) {
-                map.get(key).add(i);
+            // Add new right character
+            sCount[s.charAt(i) - 'a']++;
+
+            if (Arrays.equals(pCount, sCount)) {
+                ans.add(i - p.length() + 1);
             }
         }
 
-        return map.get(key);
+        return ans;
     }
 }
