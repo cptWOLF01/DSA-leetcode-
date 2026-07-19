@@ -3,7 +3,7 @@ class Solution {
 
         int[] count = new int[26];
 
-        if( s.length() < t.length()){
+      
 
         // Count letters in t
         for (int i = 0; i < t.length(); i++) {
@@ -21,7 +21,7 @@ class Solution {
                 return (char)(i + 'a');
             }
         }
-        }
+        
         return ' ';
     }
 }
