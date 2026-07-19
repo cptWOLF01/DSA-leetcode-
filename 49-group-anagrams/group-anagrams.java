@@ -3,19 +3,18 @@ class Solution {
 
         HashMap<String, List<String>> map = new HashMap<>();
 
-        for (String word : strs) {
+        for (int i = 0; i < strs.length; i++) {
 
-            char[] arr = word.toCharArray();
+            char[] ch = strs[i].toCharArray();
+            Arrays.sort(ch);
 
-            Arrays.sort(arr);
-
-            String key = new String(arr);
+            String key = new String(ch);
 
             if (!map.containsKey(key)) {
                 map.put(key, new ArrayList<>());
             }
 
-            map.get(key).add(word);
+            map.get(key).add(strs[i]);
         }
 
         return new ArrayList<>(map.values());
