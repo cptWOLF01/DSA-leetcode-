@@ -1,18 +1,23 @@
 class Solution {
     public List<Integer> findDisappearedNumbers(int[] nums) {
 
-        HashMap<Integer, Integer> map = new HashMap<>();
         List<Integer> ans = new ArrayList<>();
 
-        // Store all numbers in the HashMap
+        // Mark visited numbers
         for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], 1);
+
+            int index = Math.abs(nums[i]) - 1;
+
+            if (nums[index] > 0) {
+                nums[index] = -nums[index];
+            }
         }
 
-        // Check numbers from 1 to n
-        for (int i = 1; i <= nums.length; i++) {
-            if (!map.containsKey(i)) {
-                ans.add(i);
+        // Find missing numbers
+        for (int i = 0; i < nums.length; i++) {
+
+            if (nums[i] > 0) {
+                ans.add(i + 1);
             }
         }
 
