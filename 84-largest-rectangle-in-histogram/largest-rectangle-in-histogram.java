@@ -1,63 +1,26 @@
-import java.util.*;
+import java.util.Stack;
 
 class Solution {
-
     public int largestRectangleArea(int[] heights) {
-
         int n = heights.length;
-
-        int[] prev = new int[n];
-        int[] next = new int[n];
-
-        Stack<Integer> helper = new Stack<>();
-
-        // Previous Smaller
-        for (int i = 0; i < n; i++) {
-
-            while (!helper.isEmpty()
-                    && heights[helper.peek()] >= heights[i]) {
-
-                helper.pop();
-            }
-
-            if (helper.isEmpty()) {
-                prev[i] = -1;
-            } else {
-                prev[i] = helper.peek();
-            }
-
-            helper.push(i);
-        }
-
-        helper.clear();
-
-        // Next Smaller
-        for (int i = n - 1; i >= 0; i--) {
-
-            while (!helper.isEmpty()
-                    && heights[helper.peek()] >= heights[i]) {
-
-                helper.pop();
-            }
-
-            if (helper.isEmpty()) {
-                next[i] = n;
-            } else {
-                next[i] = helper.peek();
-            }
-
-            helper.push(i);
-        }
-
+        Stack<Integer> stack = new Stack<>();
         int maxArea = 0;
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i <= n; i++) {
+            
+            int currentHeight = (i == n) ? 0 : heights[i];
 
-            int width = next[i] - prev[i] - 1;
-
-            int area = heights[i] * width;
-
-            maxArea = Math.max(maxArea, area);
+            
+            while (!stack.isEmpty() && currentHeight < heights[stack.peek()]) {
+                int height = heights[stack.pop()];
+                
+                
+                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
+                
+                maxArea = Math.max(maxArea, height * width);
+            }
+            
+            stack.push(i);
         }
 
         return maxArea;
