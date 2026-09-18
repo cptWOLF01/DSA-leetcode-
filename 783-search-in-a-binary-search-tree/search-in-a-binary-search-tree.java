@@ -18,7 +18,7 @@ class Solution {
 
     while (root != null) {
 
-        if (root.val == val) {
+        if (val == root.val) {
             return root;
         }
 
