@@ -12,38 +12,27 @@
  *         this.right = right;
  *     }
  * }
- */
-class Solution {
+ */class Solution {
     public boolean isValidBST(TreeNode root) {
 
-    List<Integer> inOrderList = new LinkedList<>();
-
-    // Populate the list
-    helper(root, inOrderList);
-
-    boolean isBST = true;
-    int prev = inOrderList.get(0);
-
-    for (int i = 1; i < inOrderList.size(); i++) {
-
-        if (inOrderList.get(i) <= prev)
-            isBST = false;
-
-        prev = inOrderList.get(i);
+        return check(root, null, null);
     }
 
-    return isBST;
+    public boolean check(TreeNode root, Integer min, Integer max) {
+
+        if (root == null) {
+            return true;
+        }
+
+        if (min != null && root.val <= min) {
+            return false;
+        }
+
+        if (max != null && root.val >= max) {
+            return false;
+        }
+
+        return check(root.left, min, root.val)
+            && check(root.right, root.val, max);
     }
-
-    void helper(TreeNode treeNode, List<Integer> inOrderList) {
-
-    if (treeNode == null)
-        return;
-
-    helper(treeNode.left, inOrderList);
-
-    inOrderList.add(treeNode.val);
-
-    helper(treeNode.right, inOrderList);
-}
 }
